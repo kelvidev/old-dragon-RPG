@@ -1,4 +1,3 @@
-# thief.py
 from class_interface import CharacterClass
 from typing import List, Dict
 
@@ -47,13 +46,11 @@ class Thief(CharacterClass):
 
     def allowed_weapon(self, weapon_type: str) -> bool:
         t = weapon_type.lower()
-        # proibimos 'grande'
         if "grande" in t:
             return False
         return True
 
     def allowed_armor(self, armor_material_or_type: str) -> bool:
-        # apenas armaduras leves permitidas
         t = armor_material_or_type.lower()
         if "leve" in t or "leves" in t:
             return True

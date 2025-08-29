@@ -120,7 +120,6 @@ class RPGGenerator:
             if choice in AVAILABLE_CLASSES:
                 char_class = AVAILABLE_CLASSES[choice]()
                 
-                # Verificar restrições de alinhamento (exemplo básico)
                 if hasattr(char_class, 'allowed_alignment'):
                     race_instance = race_class()
                     if not char_class.allowed_alignment(race_instance.alignment):
@@ -138,31 +137,25 @@ class RPGGenerator:
     def create_character(self, style):
         print(f"\n🎭 CRIANDO PERSONAGEM - Estilo {style.upper()}")
         
-        # Nome do personagem
         name = input("Nome do personagem: ").strip()
         if not name:
             name = "SemNome"
         
-        # Seleção de raça e classe
         race_class = self.select_race()
         char_class = self.select_class(race_class)
         
-        # Geração de atributos
         rolls = AttributeRoller.generate(style)
         print(f"\n🎲 Rolagens realizadas (6 valores):")
         for i, v in enumerate(rolls, start=1):
             print(f"  [{i}] {v}")
         
-        # Distribuição de atributos
         if style == "classico":
             attributes = {ATTRIBUTE_NAMES[i]: rolls[i] for i in range(6)}
         else:
             attributes = self.distribute_attributes(rolls)
         
-        # Criação do personagem com raça e classe
         character = create_character_with_race_and_class(name, style, attributes, race_class, char_class)
         
-        # Processamento especial para Ladrão (talentos iniciais)
         if isinstance(char_class, Thief):
             dex_score = attributes.get("Destreza", 10)
             talents_info = char_class.initial_talents(dex_score)
@@ -223,7 +216,6 @@ class RPGGenerator:
             print(f"\n[{i}] " + "="*50)
             print(character)
             
-            # Mostrar informações especiais de talentos para Ladrões
             if hasattr(character, 'thief_talents'):
                 print("  🎯 Informações de Talentos:")
                 talents_info = character.thief_talents

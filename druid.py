@@ -1,4 +1,3 @@
-# druid.py
 from class_interface import CharacterClass
 from typing import List
 
@@ -7,7 +6,6 @@ class Druid(CharacterClass):
 
     @property
     def hit_die(self) -> int:
-        # Druida segue evolução de um Clérigo especialista -> costuma ser d8 ou similar.
         return 8
 
     @property
@@ -21,13 +19,10 @@ class Druid(CharacterClass):
         ]
 
     def allowed_alignment(self, alignment: str) -> bool:
-        # aceita alinhamento neutro (verifica substring 'neutro')
         return "neutro" in alignment.lower()
 
     def allowed_weapon(self, weapon_type: str) -> bool:
-        # proíbe armas metálicas (passar 'metálica' como weapon_type para checar)
         return "metal" not in weapon_type.lower()
 
     def allowed_armor(self, armor_material_or_type: str) -> bool:
-        # proíbe armaduras metálicas
         return "metal" not in armor_material_or_type.lower()

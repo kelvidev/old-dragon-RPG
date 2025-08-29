@@ -1,4 +1,3 @@
-# class_interface.py
 from abc import ABC, abstractmethod
 from typing import List
 
@@ -17,7 +16,6 @@ class CharacterClass(ABC):
    
         ...
 
-    # Restrições opcionais — por padrão permite tudo
     def allowed_alignment(self, alignment: str) -> bool:
         return True
 
